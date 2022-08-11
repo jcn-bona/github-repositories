@@ -5,7 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.189" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_repo.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/item_repo.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>

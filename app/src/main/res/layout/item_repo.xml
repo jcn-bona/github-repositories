@@ -32,24 +32,24 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_owner"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/full_names" />
+            tools:text="@sample/repositories.json/data/name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_repo_description"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="2"
             android:ellipsize="end"
+            android:maxLines="2"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_repo_name"
             app:layout_constraintTop_toBottomOf="@id/tv_repo_name"
-            tools:text="@tools:sample/lorem/random" />
+            tools:text="@sample/repositories.json/data/description"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_star"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            tools:text="3"
+            tools:text="@sample/repositories.json/data/stargazers_count"
             app:chipBackgroundColor="@color/white"
             app:chipIcon="@drawable/ic_stars"
             app:chipIconTint="#800B0B"
@@ -60,12 +60,10 @@
             android:id="@+id/tv_repo_language"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:layout_marginEnd="@dimen/layout_half_padding"
             app:layout_constraintEnd_toEndOf="@id/cl_card"
             app:layout_constraintTop_toTopOf="@id/chip_star"
-            tools:text="@tools:sample/cities"/>
+            tools:text="@sample/repositories.json/data/language"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
