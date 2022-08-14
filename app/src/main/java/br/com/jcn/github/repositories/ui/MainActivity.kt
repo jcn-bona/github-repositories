@@ -5,18 +5,46 @@ import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModel
 import br.com.jcn.github.repositories.R
+import br.com.jcn.github.repositories.core.createDialog
+import br.com.jcn.github.repositories.core.createProgressDialog
+import br.com.jcn.github.repositories.core.hideSoftKeyboard
 import br.com.jcn.github.repositories.databinding.ActivityMainBinding
+import br.com.jcn.github.repositories.presentation.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
+    private val dialog by lazy {createProgressDialog()}
+    private val viewModel by viewModel<MainViewModel>()
+    private val adapter by lazy { RepoListAdapter() }
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        //setSupportActionBar(binding.toolbar)
+        binding.rvRepos.adapter = adapter
 
-        setSupportActionBar(binding.toolbar)
+        //viewModel.getRepoList("jcn-bona")
+
+        viewModel.repos.observe(this) {
+            when (it) {
+                MainViewModel.State.Loading -> dialog.show()
+                is MainViewModel.State.Error -> {
+                    createDialog {
+                        setMessage(it.error.message)
+                    }.show()
+                    dialog.dismiss()
+                }
+                is MainViewModel.State.Success -> {
+                    dialog.dismiss()
+                    adapter.submitList(it.list)
+                }
+            }
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -27,7 +55,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        Log.e(TAG, "onQueryTextSubmit: $query")
+        query?.let { viewModel.getRepoList(it) }
+        binding.root.hideSoftKeyboard()
         return true
     }
 

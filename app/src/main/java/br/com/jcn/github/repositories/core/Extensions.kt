@@ -12,9 +12,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 var TextInputLayout.text: String
     get() = editText?.text?.toString() ?: ""
-    set(value) {
-        editText?.setText(value)
-    }
+    set(value) { editText?.setText(value) }
 
 fun View.hideSoftKeyboard() {
     val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
